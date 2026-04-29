@@ -2,7 +2,7 @@
 
 > AI-powered resume optimizer that scores your ATS match and rewrites your bullets to land more interviews.
 
-**[Live Demo →](https://resume-tailor.vercel.app)** &nbsp;|&nbsp; Built with Next.js 14 + Claude API
+**[Live Demo →](https://resume-tailor-khaki.vercel.app/)** &nbsp;|&nbsp; Built with Next.js 14 + Claude API
 
 ---
 
