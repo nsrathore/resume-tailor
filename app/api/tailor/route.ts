@@ -18,6 +18,20 @@ export async function POST(req: NextRequest) {
 
     const keywordList = missingKeywords.join(", ");
 
+    if (process.env.DEMO_ENABLED === "false") {
+      return new Response(
+        JSON.stringify({ error: "Demo is temporarily disabled." }),
+        { status: 503, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (resume.length > 8000 || jobDescription.length > 8000) {
+      return new Response(
+      JSON.stringify({ error: "Input too long. Please trim your resume or job description." }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     // Stream the response directly to the client
     const stream = await client.messages.stream({
       model: "claude-sonnet-4-20250514",

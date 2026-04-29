@@ -25,6 +25,20 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { resume, jobDescription } = RequestSchema.parse(body);
 
+    if (process.env.DEMO_ENABLED === "false") {
+      return NextResponse.json(
+        { error: "Demo is temporarily disabled." },
+        { status: 503 }
+      );
+    }
+
+    if (resume.length > 8000 || jobDescription.length > 8000) {
+      return NextResponse.json(
+        { error: "Input too long. Please trim your resume or job description." },
+        { status: 400 }
+      );
+    }
+
     // 2. Call Claude API
     const message = await client.messages.create({
       model: "claude-sonnet-4-20250514",
