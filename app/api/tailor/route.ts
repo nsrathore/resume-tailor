@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import { TAILOR_SYSTEM_PROMPT } from "@/lib/prompts";
+import { ratelimit } from "@/lib/ratelimit";
 
 const client = new Anthropic();
 
@@ -13,6 +14,17 @@ const RequestSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limit guardrails
+    const ip = req.headers.get("x-forwarded-for") ?? "anonymous";
+    const { success } = await ratelimit.limit(ip);
+
+    if (!success) {
+      return new Response(
+        JSON.stringify({ error: "You've reached the daily limit. Come back tomorrow!" }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const body = await req.json();
     const { resume, jobDescription, missingKeywords } = RequestSchema.parse(body);
 

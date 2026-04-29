@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import { ANALYZE_SYSTEM_PROMPT } from "@/lib/prompts";
+import { ratelimit } from "@/lib/ratelimit";
 
 const client = new Anthropic();
 
@@ -21,6 +22,16 @@ const RequestSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limiting guardrails
+    const ip = req.headers.get("x-forwarded-for") ?? "anonymous";
+    const { success, remaining } = await ratelimit.limit(ip);
+
+    if (!success) {
+      return NextResponse.json(
+        { error: "You've reached the daily limit of 5 analyses. Come back tomorrow!" },
+        { status: 429 }
+      );
+    }
     // 1. Parse and validate request body
     const body = await req.json();
     const { resume, jobDescription } = RequestSchema.parse(body);
