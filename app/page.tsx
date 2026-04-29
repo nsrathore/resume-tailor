@@ -56,7 +56,7 @@ export default function Home() {
             </div>
           </div>
           <a
-            href="https://github.com/YOUR_USERNAME/resume-tailor"
+            href="https://github.com/nsrathore/resume-tailor"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1.5"

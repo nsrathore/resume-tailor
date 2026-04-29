@@ -47,7 +47,7 @@ POST /api/tailor   ──► Claude API ──► Streaming rewritten bullets
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/resume-tailor
+git clone https://github.com/nsrathore/resume-tailor
 cd resume-tailor
 
 # 2. Install dependencies
@@ -61,7 +61,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) or appropriate port.
 
 ## Get an API key
 
