@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     if (!success) {
       return NextResponse.json(
-        { error: "You've reached the daily limit of 5 analyses. Come back tomorrow!" },
+        { error: "You've reached the daily limit of 50 analyses. Come back tomorrow!" },
         { status: 429 }
       );
     }
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
     // 2. Call Claude API
     const message = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-5",
       max_tokens: 1024,
       system: ANALYZE_SYSTEM_PROMPT,
       messages: [

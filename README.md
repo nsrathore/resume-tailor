@@ -26,7 +26,7 @@ Paste your resume and a job description. Resume Tailor:
 |-------|-----------|
 | Framework | Next.js 14 (App Router) |
 | Language | TypeScript |
-| AI | Anthropic Claude claude-sonnet-4-20250514 |
+| AI | Anthropic Claude claude-sonnet-4-5 |
 | Styling | Tailwind CSS |
 | Validation | Zod |
 | Deployment | Vercel |
