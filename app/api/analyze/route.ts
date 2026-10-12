@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     if (!success) {
       return NextResponse.json(
-        { error: "You've reached the daily limit of 50 analyses. Come back tomorrow!" },
+        { error: "You've reached the daily limit. Come back tomorrow!" },
         { status: 429 }
       );
     }
